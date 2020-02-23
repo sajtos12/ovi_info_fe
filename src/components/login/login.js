@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Redirect } from "react-router";
+import axios from "axios";
 
 export default function Login() {
   const usernameRef = useRef();
@@ -15,11 +16,19 @@ export default function Login() {
     }
   };
 
-  const login = event => {
+  const login = async event => {
     event.preventDefault();
     console.log(usernameRef.current.value);
     console.log("login");
-    setSuccess(true);
+
+    const token = await axios
+      .post("http://localhost:8080/login", {
+        userName: usernameRef.current.value,
+        password: passwordRef.current.value
+      })
+      .catch(err => console.log(err.message));
+    console.log(token);
+    //setSuccess(true);
   };
 
   return (
