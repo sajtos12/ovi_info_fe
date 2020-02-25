@@ -28,9 +28,9 @@ export default function Navbar() {
           aria-expanded="false"
           onClick={openMenu}
         >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
         </a>
       </div>
       <div className={"navbar-menu" + (open === true ? " is-active" : "")}>
