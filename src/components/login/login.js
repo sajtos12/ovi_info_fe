@@ -26,9 +26,12 @@ export default function Login() {
         userName: usernameRef.current.value,
         password: passwordRef.current.value
       })
-      .catch(err => console.log(err.message));
+      .catch(err => console.log(err.response));
     console.log(token);
-    //setSuccess(true);
+    if (token.status === 200) {
+      localStorage.setItem("token", "Bearer " + token.data.token);
+      setSuccess(true);
+    }
   };
 
   return (
@@ -37,8 +40,8 @@ export default function Login() {
         <div className="hero-body">
           <div className="columns is-centered">
             <div className="column is-one-quarter">
-              <h1 className="title">Bejelentkezés</h1>
-              <div className="container is-fullhd">
+              <h1 className="title columns is-centered">Bejelentkezés</h1>
+              <div className="container">
                 <form onSubmit={login}>
                   <div className="field">
                     <div className="control has-icons-left">
@@ -85,7 +88,7 @@ export default function Login() {
           </div>
         </div>
       </div>
-      {success && <Redirect to="/home" />}
+      {success && <Redirect from="**" to="/home" />}
     </React.Fragment>
   );
 }

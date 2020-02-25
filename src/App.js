@@ -1,16 +1,24 @@
 import React from "react";
 import "./App.css";
-import { Redirect, BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  Redirect,
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from "react-router-dom";
 import Login from "./components/login/login";
 import Home from "./components/home/home";
+import ProtectedRoute from "./components/protected/protected-route";
 
 function App() {
   return (
     <div>
       <Router>
-        <Redirect to="/login" />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/home" component={Home} />
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <ProtectedRoute path="/home" component={Home} />
+          <Redirect from="**" to="/login" />
+        </Switch>
       </Router>
     </div>
   );
