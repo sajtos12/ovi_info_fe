@@ -53,7 +53,7 @@ export default function Login() {
                         onChange={onChange}
                       />
                       <span className="icon is-small is-left">
-                        <i className="fas fa-user"></i>
+                        <i className="fas fa-user" />
                       </span>
                     </div>
                   </div>
@@ -67,7 +67,7 @@ export default function Login() {
                         onChange={onChange}
                       />
                       <span className="icon is-small is-left">
-                        <i className="fas fa-lock"></i>
+                        <i className="fas fa-lock" />
                       </span>
                     </div>
                   </div>
