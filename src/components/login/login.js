@@ -18,8 +18,6 @@ export default function Login() {
 
   const login = async event => {
     event.preventDefault();
-    console.log(usernameRef.current.value);
-    console.log("login");
 
     const token = await axios
       .post("http://localhost:8080/login", {
@@ -27,7 +25,6 @@ export default function Login() {
         password: passwordRef.current.value
       })
       .catch(err => console.log(err.response));
-    console.log(token);
     if (token.status === 200) {
       localStorage.setItem("token", "Bearer " + token.data.token);
       setSuccess(true);

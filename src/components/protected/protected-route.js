@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router";
+import axios from "axios";
 
 export default function ProtectedRoute({ component, path }) {
   const isAuth = () => {
