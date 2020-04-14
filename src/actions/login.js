@@ -18,7 +18,7 @@ export const login = (username, password) => {
         const tokenToSave = 'Bearer ' + response.data.token;
         await dispatch({
           type: TOKEN_LOADED,
-          payload: tokenToSave,
+          payload: response.data,
         });
         localStorage.setItem('token', tokenToSave);
       })

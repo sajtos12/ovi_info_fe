@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router";
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { logout as signOut } from '../../actions/login';
+import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [logout, setLogout] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setLogout(false);
@@ -14,7 +18,8 @@ export default function Navbar() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
+    dispatch(signOut());
     setLogout(true);
   };
 
@@ -37,13 +42,23 @@ export default function Navbar() {
           <span aria-hidden="true" />
         </a>
       </div>
-      <div className={"navbar-menu" + (open === true ? " is-active" : "")}>
+      <div className={'navbar-menu' + (open === true ? ' is-active' : '')}>
         <div className="navbar-start">
           <div className="navbar-item">
-            <button className="button">
-              <i className="fas fa-home" />
-              Főoldal
-            </button>
+            <NavLink to="/oi/home">
+              <button className="button">
+                <i className="fas fa-home" />
+                Főoldal
+              </button>
+            </NavLink>
+          </div>
+          <div className="navbar-item">
+            <NavLink to="/oi/csoportok">
+              <button className="button">
+                <i class="fas fa-user-friends" />
+                Csoportok
+              </button>
+            </NavLink>
           </div>
         </div>
         <div className="navbar-end">

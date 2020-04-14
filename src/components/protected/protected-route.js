@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
 
-export default function ProtectedRoute({ component, path }) {
+const ProtectedRoute = ({ component, path }) => {
   const isAuth = () => {
     if (localStorage.getItem('token')) {
       return true;
@@ -19,4 +19,6 @@ export default function ProtectedRoute({ component, path }) {
       )}
     </React.Fragment>
   );
-}
+};
+
+export default ProtectedRoute;

@@ -2,12 +2,14 @@ import {
   TOKEN_LOADED,
   TOKEN_LOADING,
   TOKEN_ERROR,
-  TOKEN_CLEAR
-} from "../constants/action-types";
+  TOKEN_CLEAR,
+} from '../constants/action-types';
 
 const initialState = {
   token: null,
-  status: false
+  status: false,
+  user: {},
+  kindergarten: {},
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -15,21 +17,25 @@ const loginReducer = (state = initialState, action) => {
     case TOKEN_LOADING:
       return Object.assign({}, state, {
         token: null,
-        status: false
+        status: false,
       });
     case TOKEN_LOADED:
       return Object.assign({}, state, {
-        token: action.payload,
-        status: true
+        token: action.payload.token,
+        user: action.payload.user,
+        kindergarten: action.payload.kindergarten,
+        status: true,
       });
     case TOKEN_ERROR:
       return Object.assign({}, state, {
-        status: false
+        status: false,
       });
     case TOKEN_CLEAR:
       return Object.assign({}, state, {
         token: null,
-        status: false
+        status: false,
+        user: {},
+        kindergarten: {},
       });
     default:
       return state;
