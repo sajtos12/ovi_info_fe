@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [logout, setLogout] = useState(false);
+
+  useEffect(() => {
+    setLogout(false);
+  }, []);
 
   const openMenu = () => {
     setOpen(!open);
@@ -23,7 +27,7 @@ export default function Navbar() {
         </div>
         <a
           role="button"
-          class="navbar-burger"
+          className="navbar-burger"
           aria-label="menu"
           aria-expanded="false"
           onClick={openMenu}
@@ -45,7 +49,7 @@ export default function Navbar() {
         <div className="navbar-end">
           <div className="navbar-item">
             <button className="button" onClick={handleLogout}>
-              <i class="fas fa-sign-out-alt" /> Kijelentkezés
+              <i className="fas fa-sign-out-alt" /> Kijelentkezés
             </button>
           </div>
         </div>

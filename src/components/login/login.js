@@ -1,91 +1,110 @@
-import React, { useRef, useState } from "react";
-import { Redirect } from "react-router";
-import axios from "axios";
+import React, { useRef, useState, Component, createRef } from 'react';
+import { Redirect } from 'react-router';
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { login as loginToBe } from '../../actions/login';
 
-export default function Login() {
-  const usernameRef = useRef();
-  const passwordRef = useRef();
-  const [valid, setValid] = useState(true);
-  const [success, setSuccess] = useState(false);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginToBe: (username, password) => dispatch(loginToBe(username, password)),
+  };
+};
 
-  const onChange = () => {
-    if (usernameRef.current.value !== "" && passwordRef.current.value !== "") {
-      setValid(false);
+class ConnectedLogin extends Component {
+  usernameRef = createRef();
+  passwordRef = createRef();
+
+  state = {
+    valid: true,
+    success: false,
+  };
+
+  onChange = () => {
+    if (
+      this.usernameRef.current.value !== '' &&
+      this.passwordRef.current.value !== ''
+    ) {
+      this.setState({ valid: false });
     } else {
-      setValid(true);
+      this.setState({ valid: true });
     }
   };
 
-  const login = async event => {
+  login = async (event) => {
     event.preventDefault();
 
-    const token = await axios
-      .post("http://localhost:8080/login", {
-        userName: usernameRef.current.value,
-        password: passwordRef.current.value
-      })
-      .catch(err => console.log(err.response));
-    if (token.status === 200) {
-      localStorage.setItem("token", "Bearer " + token.data.token);
-      setSuccess(true);
-    }
-  };
+    await this.props.loginToBe(
+      this.usernameRef.current.value,
+      this.passwordRef.current.value
+    );
 
-  return (
-    <React.Fragment>
-      <div className="hero is-medium is-desktop">
-        <div className="hero-body">
-          <div className="columns is-centered">
-            <div className="column is-one-quarter">
-              <h1 className="title columns is-centered">Bejelentkezés</h1>
-              <div className="container">
-                <form onSubmit={login}>
-                  <div className="field">
-                    <div className="control has-icons-left">
-                      <input
-                        className="input"
-                        type="text"
-                        placeholder="Felhasználónév"
-                        ref={usernameRef}
-                        onChange={onChange}
-                      />
-                      <span className="icon is-small is-left">
-                        <i className="fas fa-user" />
-                      </span>
+    this.setState({ success: this.props.status });
+  };
+  render() {
+    return (
+      <React.Fragment>
+        <div className="hero is-medium is-desktop">
+          <div className="hero-body">
+            <div className="columns is-centered">
+              <div className="column is-one-quarter">
+                <h1 className="title columns is-centered">Bejelentkezés</h1>
+                <div className="container">
+                  <form onSubmit={this.login}>
+                    <div className="field">
+                      <div className="control has-icons-left">
+                        <input
+                          className="input"
+                          type="text"
+                          placeholder="Felhasználónév"
+                          ref={this.usernameRef}
+                          onChange={this.onChange}
+                        />
+                        <span className="icon is-small is-left">
+                          <i className="fas fa-user" />
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="control has-icons-left">
-                      <input
-                        className="input"
-                        type="password"
-                        placeholder="Jelszó"
-                        ref={passwordRef}
-                        onChange={onChange}
-                      />
-                      <span className="icon is-small is-left">
-                        <i className="fas fa-lock" />
-                      </span>
+                    <div className="field">
+                      <div className="control has-icons-left">
+                        <input
+                          className="input"
+                          type="password"
+                          placeholder="Jelszó"
+                          ref={this.passwordRef}
+                          onChange={this.onChange}
+                        />
+                        <span className="icon is-small is-left">
+                          <i className="fas fa-lock" />
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <button
-                        className="button is-primary"
-                        disabled={valid}
-                        type="submit"
-                      >
-                        Bejelentkezés
-                      </button>
+                    <div className="field">
+                      <div className="control">
+                        <button
+                          className="button is-primary"
+                          disabled={this.state.valid}
+                          type="submit"
+                        >
+                          Bejelentkezés
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      {success && <Redirect from="**" to="/home" />}
-    </React.Fragment>
-  );
+        {this.state.success && <Redirect from="**" to="/home" />}
+      </React.Fragment>
+    );
+  }
 }
+
+const mapStateToProps = (state) => ({
+  status: state.loginReducer.status,
+  token: state.loginReducer.token,
+});
+
+const Login = connect(mapStateToProps, mapDispatchToProps)(ConnectedLogin);
+
+export default Login;
