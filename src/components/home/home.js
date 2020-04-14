@@ -1,11 +1,5 @@
-import React from "react";
-import Navbar from "../navbar/navbar";
+import React from 'react';
 
 export default function Home() {
-  return (
-    <div>
-      Home
-      <Navbar />
-    </div>
-  );
+  return <div>HOME</div>;
 }

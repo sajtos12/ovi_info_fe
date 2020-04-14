@@ -94,7 +94,7 @@ class ConnectedLogin extends Component {
             </div>
           </div>
         </div>
-        {this.state.success && <Redirect from="**" to="/home" />}
+        {this.state.success && <Redirect from="**" to="/oi/home" />}
       </React.Fragment>
     );
   }
