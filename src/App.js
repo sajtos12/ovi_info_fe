@@ -7,7 +7,6 @@ import {
   Switch,
 } from 'react-router-dom';
 import Login from './components/login/login';
-import Home from './components/home/home';
 import ProtectedRoute from './components/protected/protected-route';
 import { Main } from './components/skeleton/main';
 

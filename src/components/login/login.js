@@ -1,6 +1,6 @@
-import React, { useRef, useState, Component, createRef } from 'react';
+import React, { Component, createRef } from 'react';
 import { Redirect } from 'react-router';
-import { useDispatch, useSelector, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { login as loginToBe } from '../../actions/login';
 
 const mapDispatchToProps = (dispatch) => {
@@ -47,6 +47,8 @@ class ConnectedLogin extends Component {
           this.closeError();
         }, 5000),
       });
+      this.usernameRef.current.value = '';
+      this.passwordRef.current.value = '';
     }
 
     this.setState({ success: this.props.status });

@@ -30,9 +30,8 @@ export default function Navbar() {
           <i className="fas fa-rocket" />
           OVI-INFO
         </div>
-        <a
-          role="button"
-          className="navbar-burger"
+        <button
+          className="navbar-burger button is-primary"
           aria-label="menu"
           aria-expanded="false"
           onClick={openMenu}
@@ -40,7 +39,7 @@ export default function Navbar() {
           <span aria-hidden="true" />
           <span aria-hidden="true" />
           <span aria-hidden="true" />
-        </a>
+        </button>
       </div>
       <div className={'navbar-menu' + (open === true ? ' is-active' : '')}>
         <div className="navbar-start">
@@ -55,7 +54,7 @@ export default function Navbar() {
           <div className="navbar-item">
             <NavLink to="/oi/csoportok">
               <button className="button">
-                <i class="fas fa-user-friends" />
+                <i className="fas fa-user-friends" />
                 Csoportok
               </button>
             </NavLink>
